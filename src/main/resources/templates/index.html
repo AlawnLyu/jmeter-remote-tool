@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Jmeter远程工具</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div>
+    <form id="myupload" enctype="multipart/form-data">
+        <input name="file" type="file" />
+        <input type="button" value="Upload" id="uploadbtn" />
+    </form>
+    <progress></progress>
+</div>
+<div>
+    <form action="/execute" enctype="multipart/form-data" method="POST">
+        <label for="num">机器数量:</label>
+        <input type="number" name="num" id="num" th:value="${num}"/>
+        <label for="domainname">虚拟机域名:</label>
+        <input name="domainname" id="domainname" th:value="${domainname}"/>
+        <input type="submit" value="提交"/>
+    </form>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script>
+    $('#uploadbtn').click(function(){
+        var formData = new FormData($('#myupload')[0]);
+        $.ajax({
+            url: '/upload',  //server script to process data
+            type: 'POST',
+            xhr: function() {  // custom xhr
+                myXhr = $.ajaxSettings.xhr();
+                if(myXhr.upload){ // check if upload property exists
+                    myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+                }
+                return myXhr;
+            },
+            //Ajax事件
+            beforeSend: function () {
+                
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function () {
+                
+            },
+            // Form数据
+            data: formData,
+            //Options to tell JQuery not to process data or worry about content-type
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+    function progressHandlingFunction(e){
+        if(e.lengthComputable){
+            $('progress').attr({value:e.loaded,max:e.total});
+        }
+    }
+</script>
+</body>
+</html>

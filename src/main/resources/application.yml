@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+jmeter:
+  config:
+    work_path: /root/jmeter-remote-tool/
+    hosts_file: /etc/hosts
+    base_dir: /usr/local/apache-jmeter-3.3/bin/
+    slave_port: 4000
+    jtl_file: video5000.jtl
+    jmx_file: video5000.jmx
+
+spring:
+  thymeleaf:
+    cache: false
