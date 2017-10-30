@@ -1,1 +1,1 @@
-# jmeter_remote_tool
+# jmeter-remote-tool
