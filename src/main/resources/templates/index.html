@@ -9,18 +9,19 @@
 <div>
     <form id="myupload" enctype="multipart/form-data">
         <input name="file" type="file" />
-        <input type="button" value="Upload" id="uploadbtn" />
+        <input type="button" value="上传" id="uploadbtn" />
     </form>
     <progress></progress>
 </div>
 <div>
-    <form action="/execute" enctype="multipart/form-data" method="POST">
+    <form action="/execute" method="POST">
         <label for="num">机器数量:</label>
         <input type="number" name="num" id="num" th:value="${num}"/>
         <label for="domainname">虚拟机域名:</label>
         <input name="domainname" id="domainname" th:value="${domainname}"/>
-        <input type="submit" value="提交"/>
+        <input type="button" id="executebtn" value="提交"/>
     </form>
+    <a href="#" id="downloadfile" style="display: none"></a>
 </div>
 <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
@@ -43,9 +44,34 @@
             },
             success: function (data) {
                 alert(data);
+                //执行完成后自动下载文件,没有测试过..
+                $("#downloadfile").attr("href","/file").click();
             },
             error: function () {
                 
+            },
+            // Form数据
+            data: formData,
+            //Options to tell JQuery not to process data or worry about content-type
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+    $('#executebtn').click(function(){
+        var formData = new FormData();
+        formData.append("num", $('#num').val());
+        formData.append("domainname", $('#domainname').val());
+        $.ajax({
+            url: '/execute',  //server script to process data
+            type: 'POST',
+            success: function (data) {
+                alert(data);
+
+            },
+            error: function () {
+
             },
             // Form数据
             data: formData,
