@@ -129,6 +129,9 @@ public class ExecuteService {
         sb.append("  -l  ");
         sb.append(work_path);
         sb.append(jtl_file);
+        sb.append(" -e -o ");
+        sb.append(work_path);
+        sb.append("resultReport");
 
         System.out.println(sb.toString());
         Process process = Runtime.getRuntime().exec(sb.toString());

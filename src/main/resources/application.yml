@@ -9,7 +9,12 @@ jmeter:
     slave_port: 4000
     jtl_file: video5000.jtl
     jmx_file: video5000.jmx
+    static_file: /root/jmeter-remote-tool/resultReport/
 
 spring:
   thymeleaf:
     cache: false
+#  resources:
+#    static-locations: file:/root/jmeter-remote-tool/resultReport/
+#  mvc:
+#    static-path-pattern: /report/**

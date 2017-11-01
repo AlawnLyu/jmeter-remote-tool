@@ -44,8 +44,6 @@
             },
             success: function (data) {
                 alert(data);
-                //执行完成后自动下载文件,没有测试过..
-                $("#downloadfile").attr("href","/file").click();
             },
             error: function () {
                 
@@ -68,7 +66,7 @@
             type: 'POST',
             success: function (data) {
                 alert(data);
-
+                window.location.href = "/report/index.html";
             },
             error: function () {
 
